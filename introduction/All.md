@@ -62,10 +62,10 @@ To operate effectively, every coroutine relies on specific components that colle
 A coroutine context has elements like a Job that handles the lifecycle, a coroutine name for debugging, an exception handler, and a dispatcher.
 The dispatcher is the element that determines which thread pools will be used for the given coroutine and handles the execution of the coroutine.
 
-![img.png](images/concurrency.png)
-
 ## Default Dispatcher
 Dispatcher for compute-intensive coroutines that consume CPU resources. By default, the maximum number of threads used by this dispatcher is equal to the number of CPU cores, but is at least two.
+
+![img.png](images/concurrent.png)
 
 ```kotlin
 launch(Dispatchers.Default) { ... }
@@ -73,6 +73,8 @@ launch(Dispatchers.Default) { ... }
 
 ## IO Dispatcher
 For IO-intensive operations like database calls, network calls, disk operations. It defaults to the limit of 64 threads or the number of cores (whichever is larger).
+
+![img.png](images/parallel.png)
 
 ```kotlin
 launch(Dispatchers.IO) { ... }

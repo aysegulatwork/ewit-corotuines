@@ -13,7 +13,7 @@ import solutions.calculateOrderSusAsync
 
 fun main() {
     runBlocking(Dispatchers.Default) {
-        supervisorScope {
+        coroutineScope {
             launch { calculateOrderSusAsync("IPHONE", 100) }
             delay(1000) //to make sure that we see the exception being thrown first
             launch { calculateOrderSusAsync("MACBOOK", 10) }

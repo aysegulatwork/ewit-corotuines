@@ -20,14 +20,6 @@ import shared.clients.PricingRestClient
  **/
 
 
-fun main() {
-    calculateOrder("IPHONE", 2)
-}
-
-
-
-
-
 fun calculateOrder(product: String, requestedQuantity: Int): Double {
     val stock = StockRestClient.getStock(product)
     val price = PricingRestClient.getPrice(product)
@@ -40,3 +32,10 @@ fun calculateOrder(product: String, requestedQuantity: Int): Double {
         throw Exception("Insufficient stock to fulfill the request")
     }
 }
+
+
+fun main() {
+    calculateOrder("IPHONE", 2)
+}
+
+

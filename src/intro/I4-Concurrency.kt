@@ -4,6 +4,7 @@ import kotlinx.coroutines.*
 import shared.clients.ProductRestClient
 import shared.clients.ProductWebClient
 import shared.log
+import shared.measureTime
 import kotlin.system.measureTimeMillis
 
 /**
@@ -15,9 +16,8 @@ import kotlin.system.measureTimeMillis
  *
  */
 
-@OptIn(ExperimentalStdlibApi::class)
 fun main() {
-    val time = measureTimeMillis {
+    val time = measureTime("") {
         runBlocking(Dispatchers.Default) {
             launch {
                 log("I am getting product type for Iphone")
@@ -34,20 +34,4 @@ fun main() {
     }
 
     println("Took ${time}ms")
-
-
-//    /************* Dispatcher.Unconfined ************/
-//    runBlocking(Dispatchers.Unconfined) {
-//        log("This is before suspending")
-//        delay(1000)
-//        log("This is after suspending")
-//    }
-
-
-    /************* Own Thread ************/
-//    runBlocking {
-//        launch(newSingleThreadContext("MyOwnThread")) {
-//            log("This is my own thread")
-//        }
-//    }
 }

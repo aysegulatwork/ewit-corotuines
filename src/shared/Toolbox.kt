@@ -13,7 +13,7 @@ const val boldEnd = "\u001B[0m"
 suspend fun log(msg: String) =
     println("[Context:${coroutineContext[CoroutineDispatcher]}] [Thread: ${Thread.currentThread().name}] $msg")
 
-fun <T> executeAndMeasureTime(msg: String, fn: () -> T) {
+fun <T> measureTime(msg: String, fn: () -> T) {
     printWithDashes(msg)
     val timeTaken = measureTimeMillis {
         fn()

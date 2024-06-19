@@ -5,7 +5,7 @@ package solutions
 import kotlinx.coroutines.*
 import shared.clients.PricingWebClient
 import shared.clients.StockWebClient
-import shared.executeAndMeasureTime
+import shared.measureTime
 
 /**
  *
@@ -23,7 +23,7 @@ import shared.executeAndMeasureTime
 
 
 fun main() {
-    executeAndMeasureTime("Cancellation exercise"){
+    measureTime("Cancellation exercise"){
         runBlocking {
             calculateOrderCancellable("IPHONE", 2)
         }

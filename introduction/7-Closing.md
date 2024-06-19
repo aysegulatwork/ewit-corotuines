@@ -1,1 +1,0 @@
-![img.png](images/thanks.png)

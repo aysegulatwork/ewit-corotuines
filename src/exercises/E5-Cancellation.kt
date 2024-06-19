@@ -21,43 +21,4 @@ import shared.log
 
 
 fun main() {
-    runBlocking {
-        calculateOrderSusWebE5("IPHONE", 2)
-    }
-}
-
-
-suspend fun calculateOrderSusWebE5(product: String, requestedQuantity: Int) = coroutineScope {
-    val deferredStock = async {
-        log("Calling stock")
-        StockWebClient.getStock(product)
-    }
-
-    val deferredPrice = async {
-        log("Calling pricing")
-        PricingWebClient.getPrice(product)
-    }
-
-    delay(250)
-    if (deferredStock.isActive){
-        deferredStock.cancelAndJoin()
-    }
-
-    val stock =
-        try {
-            deferredStock.await()
-        } catch (e: CancellationException){
-            println("Error: ${e.message}")
-            requestedQuantity
-        }
-
-    val price = deferredPrice.await()
-
-    if (requestedQuantity <= stock) {
-        val totalPrice = price * requestedQuantity
-        println("Quantity=$requestedQuantity product=$product Total=$totalPrice")
-        totalPrice
-    } else {
-        throw Exception("Insufficient stock to fulfill the request")
-    }
 }

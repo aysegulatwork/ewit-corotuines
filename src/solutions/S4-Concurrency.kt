@@ -4,7 +4,8 @@ package solutions
 
 import kotlinx.coroutines.*
 import shared.clients.*
-import shared.executeAndMeasureTime
+import shared.log
+import shared.measureTime
 
 /**
  * 1. Observe the two client calls we made in the previous exercise, are they really parallel?
@@ -19,35 +20,56 @@ import shared.executeAndMeasureTime
 
 
 fun main() {
-    executeAndMeasureTime("Normal function with sync client") {
+    measureTime("Normal function with sync client") {
         calculateOrder("IPHONE", 2)
     }
 
-    executeAndMeasureTime("Suspendable function with sync client") {
+    measureTime("Suspendable function with sync client") {
         runBlocking {
             calculateOrderSus(product = "IPHONE", requestedQuantity = 2)
         }
     }
 
-    executeAndMeasureTime("Suspendable function with sync client, IO Dispatcher") {
+    measureTime("IO Dispatcher - Suspendable function with sync client") {
         runBlocking(Dispatchers.IO) {
             calculateOrderSus(product = "IPHONE", requestedQuantity = 2)
         }
     }
 
-    executeAndMeasureTime("Suspendable function with async, Default Dispatcher, async") {
+    measureTime("Default Dispatcher- Suspendable function with async client") {
         runBlocking(Dispatchers.Default) {
             calculateOrderSusAsync(product = "IPHONE", requestedQuantity = 2)
         }
     }
 
-    //TODO extras
+
+//    /************* Dispatcher.Unconfined ************/
+//    runBlocking(Dispatchers.Unconfined) {
+//        log("This is before suspending")
+//        delay(1000)
+//        log("This is after suspending")
+//    }
+
+
+    /************* Own Thread ************/
+//    runBlocking {
+//        launch(newSingleThreadContext("MyOwnThread")) {
+//            log("This is my own thread")
+//        }
+//    }
 
 }
 
 suspend fun calculateOrderSusAsync(product: String, requestedQuantity: Int) = coroutineScope {
-    val deferredStock = async { StockWebClient.getStock(product) }
-    val deferredPrice = async { PricingWebClient.getPrice(product) }
+    val deferredStock = async {
+        log("Calling STOCK service")
+        StockWebClient.getStock(product)
+    }
+
+    val deferredPrice = async {
+        log("Calling PRICING service")
+        PricingWebClient.getPrice(product)
+    }
 
     val stock = deferredStock.await()
     val price = deferredPrice.await()
