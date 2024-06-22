@@ -1,12 +1,10 @@
 package exercises
 
-
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import shared.clients.StockRestClient
 import shared.clients.PricingRestClient
-
 
 /**
  * Customer added two telephones (IPHONE) to their cart.
@@ -37,5 +35,3 @@ fun calculateOrder(product: String, requestedQuantity: Int): Double {
 fun main() {
     calculateOrder("IPHONE", 2)
 }
-
-

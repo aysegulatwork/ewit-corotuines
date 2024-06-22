@@ -17,21 +17,17 @@ import kotlin.system.measureTimeMillis
  */
 
 fun main() {
-    val time = measureTime("") {
-        runBlocking(Dispatchers.Default) {
-            launch {
-                log("I am getting product type for Iphone")
+    runBlocking {
+        launch {
+            log("I am getting product type for Iphone")
 //                ProductRestClient.getProductType("IPHONE")
-                ProductWebClient.getProductType("IPHONE")
-            }
+            ProductWebClient.getProductType("IPHONE")
+        }
 
-            launch {
-                log("I am getting product type for Macbook")
+        launch {
+            log("I am getting product type for Macbook")
 //                ProductRestClient.getProductType("MACBOOK")
-                ProductWebClient.getProductType("MACBOOK")
-            }
+            ProductWebClient.getProductType("MACBOOK")
         }
     }
-
-    println("Took ${time}ms")
 }

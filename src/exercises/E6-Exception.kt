@@ -10,7 +10,6 @@ import solutions.calculateOrderSusAsync
  *
  */
 
-
 fun main() {
     runBlocking(Dispatchers.Default) {
         coroutineScope {

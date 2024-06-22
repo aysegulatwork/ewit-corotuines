@@ -20,23 +20,23 @@ import shared.measureTime
 
 
 fun main() {
-    measureTime("Normal function with sync client") {
+    measureTime("Normal function with REST call") {
         calculateOrder("IPHONE", 2)
     }
 
-    measureTime("Suspendable function with sync client") {
+    measureTime("Suspendable function with REST call") {
         runBlocking {
             calculateOrderSus(product = "IPHONE", requestedQuantity = 2)
         }
     }
 
-    measureTime("IO Dispatcher - Suspendable function with sync client") {
+    measureTime("IO Dispatcher - Suspendable function with REST call") {
         runBlocking(Dispatchers.IO) {
             calculateOrderSus(product = "IPHONE", requestedQuantity = 2)
         }
     }
 
-    measureTime("Default Dispatcher- Suspendable function with async client") {
+    measureTime("Default Dispatcher- Suspendable function with WEBCLIENT call") {
         runBlocking(Dispatchers.Default) {
             calculateOrderSusAsync(product = "IPHONE", requestedQuantity = 2)
         }
