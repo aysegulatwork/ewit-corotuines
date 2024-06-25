@@ -4,30 +4,49 @@ import kotlinx.coroutines.*
 import shared.clients.ProductRestClient
 import shared.clients.ProductWebClient
 import shared.log
-import shared.measureTime
-import kotlin.system.measureTimeMillis
-
-/**
- * 1. Observe the two calls we are making below, are they parallel?
- *
- * 2. How do we make them parallel?
- *
- * 3. How to make them concurrent?
- *
- */
+import shared.printWithDashes
 
 fun main() {
-    runBlocking {
+
+
+    printWithDashes("FOR BLOCKING OPERATIONS - ONLY PARALLELISM")
+
+    runBlocking(Dispatchers.IO) {
         launch {
-            log("I am getting product type for Iphone")
-//                ProductRestClient.getProductType("IPHONE")
+            log("Rest call for IPHONE")
+            ProductRestClient.getProductType("IPHONE")
+        }
+
+        launch {
+            log("Rest call for MACBOOK")
+            ProductRestClient.getProductType("MACBOOK")
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    printWithDashes("FOR NON-BLOCKING OPERATIONS - CONCURRENCY&PARALLELISM")
+
+    runBlocking(Dispatchers.Default) {
+        launch {
+            log("WebClient call for IPHONE")
             ProductWebClient.getProductType("IPHONE")
         }
 
         launch {
-            log("I am getting product type for Macbook")
-//                ProductRestClient.getProductType("MACBOOK")
+            log("WebClient call for MACBOOK")
             ProductWebClient.getProductType("MACBOOK")
         }
     }
+
+
 }
