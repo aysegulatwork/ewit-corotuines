@@ -38,7 +38,7 @@ fun main() {
 
     measureTime("Default Dispatcher- Suspendable function with WEBCLIENT call") {
         runBlocking(Dispatchers.Default) {
-            calculateOrderSusAsync(product = "IPHONE", requestedQuantity = 2)
+            calculateOrderSusWebclient(product = "IPHONE", requestedQuantity = 2)
         }
     }
 
@@ -60,7 +60,7 @@ fun main() {
 
 }
 
-suspend fun calculateOrderSusAsync(product: String, requestedQuantity: Int) = coroutineScope {
+suspend fun calculateOrderSusWebclient(product: String, requestedQuantity: Int) = coroutineScope {
     val deferredStock = async {
         log("Calling STOCK service")
         StockWebClient.getStock(product)

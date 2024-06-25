@@ -13,9 +13,9 @@ import kotlinx.coroutines.*
 fun main() {
     runBlocking(Dispatchers.Default) {
         supervisorScope {
-            launch { calculateOrderSusAsync("IPHONE", 100) }
+            launch { calculateOrderSusWebclient("IPHONE", 100) }
             delay(1000) //to make sure that we see the exception being thrown first
-            launch { calculateOrderSusAsync("MACBOOK", 10) }
+            launch { calculateOrderSusWebclient("MACBOOK", 10) }
         }
     }
 }
